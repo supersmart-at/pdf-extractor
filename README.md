@@ -10,13 +10,28 @@ Befüllte PDF-Formulare auslesen → Daten direkt exportieren.
 
 Gehe zu [Releases](https://github.com/supersmart-at/pdf-extractor/releases) und lade dein Betriebssystem:
 
-- **macOS**: `PDF Extractor.app`
 - **Windows**: `PDF Extractor.exe`
 - **Linux**: `pdf-extractor`
 
 Doppelklick → Fertig.
 
+
+**macOS**: `PDF Extractor.app`
+
 ------
+
+## macOS Installation
+
+1. **PDF Extractor.app.zip** herunterladen
+2. Entpacken (passiert automatisch)
+3. **Terminal öffnen** (Cmd+Space → "Terminal")
+4. Folgendes eingeben:
+
+   `xattr -d com.apple.quarantine ~/Downloads/"PDF Extractor.app"`
+
+5. **Doppelklick** auf PDF Extractor.app
+
+Fertig! 🚀
 
 ## Benutzung
 
