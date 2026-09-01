@@ -17,16 +17,27 @@ jobs:
         with:
           python-version: '3.11'
       
-      - run: |
+      - name: Install dependencies
+        run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
       
-      - run: pyinstaller --onefile --windowed --name "PDF Extractor" pdf_extractor_app.py
+      - name: Build macOS app
+        run: |
+          pyinstaller --onefile --windowed --name "PDF Extractor" pdf_extractor_app.py
+          ls -la dist/
       
-      - uses: softprops/action-gh-release@v1
+      - name: Create ZIP
+        run: |
+          cd dist
+          zip -r "PDF_Extractor_macOS.zip" "PDF Extractor.app"
+          ls -la
+      
+      - name: Upload macOS release
+        uses: softprops/action-gh-release@v1
         with:
-          files: dist/PDF\ Extractor.app
+          files: dist/PDF_Extractor_macOS.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -38,16 +49,19 @@ jobs:
         with:
           python-version: '3.11'
       
-      - run: |
+      - name: Install dependencies
+        run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
       
-      - run: pyinstaller --onefile --windowed --name "PDF Extractor" pdf_extractor_app.py
+      - name: Build Windows exe
+        run: pyinstaller --onefile --windowed --name "PDF_Extractor_Windows" pdf_extractor_app.py
       
-      - uses: softprops/action-gh-release@v1
+      - name: Upload Windows release
+        uses: softprops/action-gh-release@v1
         with:
-          files: dist/PDF Extractor.exe
+          files: dist/PDF_Extractor_Windows.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -59,15 +73,18 @@ jobs:
         with:
           python-version: '3.11'
       
-      - run: |
+      - name: Install dependencies
+        run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
       
-      - run: pyinstaller --onefile --windowed --name "pdf-extractor" pdf_extractor_app.py
+      - name: Build Linux binary
+        run: pyinstaller --onefile --windowed --name "PDF_Extractor_Linux" pdf_extractor_app.py
       
-      - uses: softprops/action-gh-release@v1
+      - name: Upload Linux release
+        uses: softprops/action-gh-release@v1
         with:
-          files: dist/pdf-extractor
+          files: dist/PDF_Extractor_Linux
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
